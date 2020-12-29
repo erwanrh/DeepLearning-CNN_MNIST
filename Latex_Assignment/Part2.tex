@@ -1,0 +1,64 @@
+\section{Problem 1 : Logistic regression via pytorch}
+
+\subsection{Mathematical description of the logistic regression} 
+
+Logistic regression is used to describe data and to explain the relationship between one dependent binary variable and one or more nominal, ordinal, interval or ratio-level independent variables. Here, we have a multinomial logistic regression. \\
+In order to map predicted values to probabilities, we use the Sigmoid function. The function maps any real value into another value between 0 and 1. \\ 
+
+$x = \begin{pmatrix}
+	x_1 \\
+	\dots \\
+	x_d 
+\end{pmatrix}$ and $\mathcal{Y} = \{0,1\}$ \\
+
+The prediction is : $y = g(x)=\dfrac{exp(b+w^{T}x)}{1+exp(b+w^{T}x)} \in [0,1], w\in\mathbb{R}^{d}, b\in \mathbb{R}$ \\
+
+We can write the logistic fonction $\sigma : \mathbb{R} \longrightarrow \mathbb{R}$:
+\begin{align*}	
+	\sigma(u) = \dfrac{e^{u}}{1+e^{u}}
+\end{align*}
+
+With the multinominial fonction, we can write : 
+\begin{align*}	
+	\sigma(z)=\dfrac{1}{\sum_{k=1}^{K}e^{z_{k}}}\begin{pmatrix}
+		e^{z_{1}} \\
+		\dots \\
+		e^{z_{k}}
+	\end{pmatrix} \in \mathbb{R}^{K}
+\end{align*} \\
+
+
+
+This function is softmax function, which is used in multinomial logistic regression and is often used as the last activation function of a NN to normalize the output of a network to a probability distribution over predicted output classes : 
+\begin{align*}
+	g(x) = \sigma(w^{T}_{1}x+b_{1}, \dots, w_{K}^{T}x+b_{k})
+\end{align*}
+
+\subsection{Mathematical description of the optimization algorithm usec}
+We use the Stochastic Gradient Descent (SGD) optimizer. To do this, the sample is partitioned into batches $B_{1}$ to $B_{M}$ such as : 
+
+\begin{align*}
+	card(B_{m}) \simeq [\dfrac{n}{M}]    m=1,\cdots,M \\
+	B_{1} \cup \cdots \cup B_{M} = \{1,\cdots, n\}
+\end{align*}
+
+For every iteration, we replace $\nabla L_{n}(\Theta^{(t)})$ by :
+\begin{equation*}
+	\nabla L^m(\theta^{(t)}) = \frac{1}{|B_{m}|}\sum_{i\in B_{m}}\nabla_{\theta}l(Y_{i},g(X_{i},\theta^{(t)}))
+\end{equation*}
+
+We have, $\forall \theta$ :  \begin{align*}
+	\mathbb{E}[\nabla L^{m}(\theta)] = \nabla L_{n}(\theta)
+\end{align*}
+
+
+
+\subsection{High level idea of how to implement logisitic regression with pytorch}
+
+We initialized our model with this linear layer: torch.nn.Linear(input size, output size). For the activation function, we used \verb|torch.nn.Softmax()|. The softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability distribution. \\
+Next, we used SGD optimizer for the update of hyperparameters. model.parameters() provided the learnable parameters to the optimizer and $lr=0.01$ defines the learning rates for the parameter updates. \\
+Then, we used the same architecture than the TP. 
+
+\subsection{Report classification accuracy on test data.}
+
+The classification accuracy on test data is : 0.898.

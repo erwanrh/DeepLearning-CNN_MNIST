@@ -1,0 +1,57 @@
+\section{Part 1}
+\subsection{Gradient descent solving}
+\textbf{Question : Solving the problem $\min_{w \in \mathbb{R}^5}\, (1 - x^\top w)^2$ with $x = (1, \ldots, 1)^\top \in \mathbb{R}^5$  analytically.} \\
+First we compute the gradient of the loss function $L(w)$ :
+\begin{align*}
+	\nabla L(w) = \left[
+	\frac{\partial L(w)}{\partial w_1},
+	\frac{\partial L(w)}{\partial w_2},
+	\frac{\partial L(w)}{\partial w_3},
+	\frac{\partial L(w)}{\partial w_4},
+	\frac{\partial L(w)}{\partial w_5}		 
+	\right]
+\end{align*}
+We can rewrite the loss function as : 
+\begin{equation*}
+	L(w) = \left( 1-\sum^5_{i=1}x_iw_i \right)^2
+\end{equation*}
+We notice that we have a unique analytical expression for the partial derivatives of the loss function considering that $\forall i : x_i=1$: 
+\begin{align*}
+	\forall i	: \quad \frac{\partial L(w)}{\partial w_i} = - 2\times \left(1-\sum^5_{j=1} w_j\right)
+\end{align*}
+We want the gradient equal to zero as it means we are at the minimum of the function. We want the mean of the gradient elements equal to zero. As all the elements are equal to one another, we compute :
+\begin{align*}
+	\frac{\partial L(w)}{\partial w_i}&=0 \\
+	\Leftrightarrow - 2\times \left(1-\sum^5_{j=1} w_j\right)&=0 \\ 
+	\Leftrightarrow \sum^5_{j=1} w_j&=1 \Rightarrow w_i=\frac{1}{5}=0.2
+\end{align*}
+The second derivative $\frac{\partial^2 L(w)}{\partial w_i^2}$ is positive so we know it is a convex function. We have the same result as with the gradient descent algorithm.  \\
+
+
+\textbf{Question : What is the learning rate that we need to set to ensure convergence ?} \\
+The learning rate is introduced when using a gradient descent algorithm. The algorithm is based on a step-by-step exploration (descent) of the gradient of the optimized function. It is as follows: \\
+
+\underline{Input} : $w_0$ starting point, $\eta$ learning rate  \\ \underline{Loop} :  For $i=1,\dots, \max_{iter}$ :  \\ \hspace*{16mm} 
+$w_i \leftarrow w_{i-1} - \eta \nabla L(w_{i-1})$ \\ \hspace*{10mm} End \\
+
+The learning rate $\eta$ is the rate at which the gradient is explored. It shouldn't be too small otherwise the algorithm will take too long to converge. On the other side it shouldn't be too large otherwise the minimum value could be  missed and the optimal solution never found. A learning rate of 0.01 will ensure a fast convergence but will not ensure that it is the global minimum of the function if it is not convex. We could also use a dynamic learning rate that decreases the more we approach the solution. \\
+
+\textbf{Question : Explain the connection of loss.backward() and the backpropagation for feedforward neural nets. } \\
+The backward method, that comes from the autograd library of PyTorch, compute the sum of the gradient of the given tensor. It is, in this case, applied on the loss tensor that computes the loss function. Il is connected to three tensors, $x$, $y$, and $w$. The last one, $w$ is the tensor used for the gradient computation because when we created it we set the parameter \verb|requires_grad| as true. It is useful for the back-propagation method in which we compute gradient of the loss function. 
+
+
+
+\subsection{Multi layer perceptron}
+\textbf{{Question}: Run the above block several times. Is it plotting the same number all the time? If not, why?} \\
+
+When we run the block several times, the plotting number is not the same all the time since the code block is an iteration over the data-set that stops every time it loops with the instruction \verb|break|. 
+
+
+
+
+
+
+
+
+
+
