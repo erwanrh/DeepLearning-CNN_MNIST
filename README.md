@@ -8,6 +8,7 @@ Gradient descent optimization.
 
 ## 2nd model : Convolutional Neural Network
 ![CNN](https://miro.medium.com/max/3744/1*CnNorCR4Zdq7pVchdsRGyw.png)
+> https://becominghuman.ai/ *Building a Convolutional Neural Network (CNN) Model for Image classification.*
 Using the ConvNet architecture : adding convolutional layers and ReLu activation functions with an Adam optimization algorithm (Stochastic gradient optimization with adaptive weights). 
 
 ## 3rd model : CNN with dropout layer
