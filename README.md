@@ -18,4 +18,5 @@ Using the ConvNet architecture : adding convolutional layers and ReLu activation
 ![dropout](https://www.baeldung.com/wp-content/uploads/sites/4/2020/05/2-1-2048x745-1.jpg)
 > Source : https://medium.com *Dropout in (Deep) Machine learning*
 
+
 Adding a dropout layer to the ConvNet architecture to speed up the network optimization. 
